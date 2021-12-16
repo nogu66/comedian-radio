@@ -9,12 +9,17 @@ const useStyles = makeStyles({
   contents: {
     marginTop: '20px',
   },
+  smallContents: {
+    marginTop: '20px',
+    padding: '0 20px',
+  },
 });
 
 function Content() {
   const classes = useStyles();
   const [programs, setPrograms] = useState([]);
   const isWide = useMedia({ minWidth: '742px' });
+  const isMinWidth = useMedia({ minWidth: '600px' });
   useEffect(() => {
     db.collection('radioPrograms')
       .get()
@@ -40,10 +45,14 @@ function Content() {
   }, []);
 
   return (
-    <Grid container spacing={1} className={classes.contents}>
+    <Grid
+      container
+      spacing={1}
+      className={isMinWidth ? classes.contents : classes.smallContents}
+    >
       {programs.map((program, index) => {
         return (
-          <Grid item xs={12} sm={isWide ? 4 : 6}>
+          <Grid item xs={isMinWidth ? 12 : 6} sm={isWide ? 4 : 6}>
             <BodyCard program={program} />
           </Grid>
         );
