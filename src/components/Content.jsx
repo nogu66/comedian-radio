@@ -1,51 +1,27 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core';
 import { db } from "../firebase/index";
-import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core/Typography';
-import { Card } from './index';
+import useMedia from "use-media";
 import { Grid } from '@material-ui/core';
 import BodyCard from './BodyCard';
 
 const useStyles = makeStyles({
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    title: {
-      fontSize: 14,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-    cHeader: {
-      height: '50px',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      '& .MultoCardHeader-content': {
-        overflow: 'hidden',
-      },
-    },
-    cContent: {
-      height: '200px',
-      overflow: 'hidden',
-    },
+    contents: {
+      marginTop: '20px'
+    }
   });
 
   function Content() {
+    const classes = useStyles();
     const [programs, setPrograms] = useState([]);
-    // const [programs, setPrograms] = useState([]);
-    const list = [];
-
+    const isWide = useMedia({minWidth: "742px"})
     useEffect(() => {
         db.collection('radioPrograms').get().then((snapshots) => {
-            const list = [];
+            const programs = [];
             snapshots.forEach((doc) => {
                 const data = doc.data();
                 // console.log(data);
-                list.push({
+                programs.push({
                     id: doc.id,
                     name: data.name,
                     date: data.date,
@@ -57,33 +33,20 @@ const useStyles = makeStyles({
                     talnets: data.talents,
                 })
             })
-            setPrograms(list);
+            setPrograms(programs);
         })
     }, []);
 
     return (
-        <section>
-            <ul>
-                <div>
-                    {/* <p>{programs}</p> */}
-                    {/* {list.map((item, index) => {
-                        return (
-                            <Grid contaier spacing={2}>
-                                <div></div>
-                            </Grid>
-                        );
-                    })} */}
-                    {programs.map((program, index) => {
-                        return (
-                            <Grid container spacing={2}>
-                                {/* <BodyCard card={program}/> */}
-                                <BodyCard program={program}/>
-                            </Grid>
-                        );
-                    })}
-                </div>
-            </ul>
-        </section>
+      <Grid container spacing={1} className={classes.contents}>
+        {programs.map((program, index) => {
+          return (
+            <Grid item xs={12} sm={isWide ? 4 : 6}>
+              <BodyCard program={program}/>
+            </Grid>
+          );
+        })}
+      </Grid>
     );
 
   };

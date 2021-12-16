@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Content from './components/Content';
 
-import firebase, { db } from './firebase/index';
-
 function App() {
   return (
     <Grid container direction="column">
@@ -15,6 +13,7 @@ function App() {
       <Grid item container>
         <Grid sm={2} />
         <Grid xs={12} sm={8}>
+          {/* <Grid xs={12} sm={4}> */}
           <Router>
             <Routes>
               <Route exact path="/" element={<Content />}></Route>
