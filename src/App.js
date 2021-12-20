@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Content from './components/Content';
+import { DetailContent } from './components/index';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Router>
             <Routes>
               <Route exact path="/" element={<Content />}></Route>
+              <Route path="/detail/:id" element={<DetailContent />}></Route>
             </Routes>
           </Router>
         </Grid>

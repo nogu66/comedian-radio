@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import { db } from '../firebase/index';
 import useMedia from 'use-media';
 import { Grid } from '@material-ui/core';
-import BodyCard from './BodyCard';
+import { BodyCard } from './index';
 
 const useStyles = makeStyles({
   contents: {
@@ -31,13 +31,6 @@ function Content() {
           programs.push({
             id: doc.id,
             name: data.name,
-            date: data.date,
-            time: data.time,
-            hp_url: data.hp_url,
-            station_id: data.station_id,
-            twitter_hashtag: data.twitter_hashtag,
-            twitter_url: data.twitter_url,
-            talnets: data.talents,
           });
         });
         setPrograms(programs);
@@ -53,7 +46,7 @@ function Content() {
       {programs.map((program, index) => {
         return (
           <Grid item xs={isMinWidth ? 12 : 6} sm={isWide ? 4 : 6}>
-            <BodyCard program={program} />
+            <BodyCard {...program} />
           </Grid>
         );
       })}

@@ -34,8 +34,7 @@ const useStyles = makeStyles({
 });
 
 function BodyCard(props) {
-  // const {id, name, date, time, hp_url, station_id, twitter_hashtag, twitter_url, talents } = props;
-  const name = props.program.name;
+  const { id, name } = props;
 
   const classes = useStyles();
   return (
@@ -44,7 +43,7 @@ function BodyCard(props) {
       <CardMedia
         style={{ height: '10px' }}
         image={'https://radiko.jp/res/program/DEFAULT_IMAGE/LFR/2uvc37bx9r.png'}
-        // alt={name}
+        alt={name}
         className={classes.cMedia}
       />
       <CardContent className={classes.cContent}>
@@ -54,7 +53,7 @@ function BodyCard(props) {
       </CardContent>
       <CardActions>
         {/* <Button size="small" href={`/post/${id}`}> */}
-        <Button size="small" className={classes.cColorC}>
+        <Button size="small" className={classes.cColorC} href={`detail/${id}`}>
           詳細をみる
         </Button>
       </CardActions>
